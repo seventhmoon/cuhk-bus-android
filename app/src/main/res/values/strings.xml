@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_route_detail">班次及路線</string>
+    <string name="title_route_list">中大校巴</string>
+    <string name="app_name">中大校巴</string>
+    <string name="app_name_bus">下一班中大校巴</string>
+    <string name="menu_refresh">更新</string>
+    <string name="bus_stops">停以下各站</string>
+    <string name="bus_timetable">時間表</string>
+    <string name="bus_next_bus">下一班校巴</string>
+    <string name="menu_clock">下班車</string>
+    <string name="menu_info">班次及路線</string>
+    <string name="menu_location">校巴站位置</string>
+    <string name="title_activity_sliding_pane">SlidingPaneActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_geo_fances">GeoFancesActivity</string>
+
+</resources>

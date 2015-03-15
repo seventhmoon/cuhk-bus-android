@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bus_route_notes">
+        <item>逢每小時00分由港鐵大學站開出班次途經賽馬會研究生宿舍。\n繁忙時段加強服務。</item>
+        <item>逢每小時45分及00分由港鐵大學站開出班次途經邵逸夫堂。</item>
+        <item></item>
+        <item></item>
+        <item>轉堂校巴</item>
+        <item>轉堂校巴\n逢每小時18分由新亞書院開出。逢每小時15分由敬文書院 開出。</item>
+        <item>轉堂校巴</item>
+        <item>轉堂校巴</item>
+        <item>逢每小時00分由港鐵大學站開出班次途經賽馬會研究生宿舍。</item>
+        <item>逢每小時00分由港鐵大學站開出班次途經三十九區 。\n由9月至翌年5月，假期的最後一天20:00至23:20，約10至15分鐘開出一班。</item>
+        <item>早上班次只由港鐵大學站往三十九區。傍晚班次只由三十九區往港鐵大學站。</item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="bus_routes">
+        <item>1A/1B</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6A/6B</item>
+        <item>7</item>
+        <item>8</item>
+        <item>N</item>
+        <item>H</item>
+        <item>LA39</item>
+        <item>LIH</item>
+        <item>LU</item>
+        <item>LD</item>
+    </string-array>
+    <string-array name="bus_route_names">
+        <item>大學站 往返 本部</item>
+        <item>大學站 往返 新亞及聯合</item>
+        <item>池旁路 往返 逸夫</item>
+        <item>池旁路 往返 三十九區</item>
+        <item>崇基 往 新亞及聯合</item>
+        <item>新亞及聯合 往 崇基</item>
+        <item>逸夫 往 崇基</item>
+        <item>逸夫 往返 本部、新亞及聯合</item>
+        <item>夜行線</item>
+        <item>假日線</item>
+        <item>三十九區專車</item>
+        <item>國際生舍堂穿梭巴士</item>
+        <item>上行穿梭小巴</item>
+        <item>下行穿梭小巴</item>
+    </string-array>
+    <string-array name="bus_route_1_stops">
+        <item>港鐵大學站</item>
+        <item>賽馬會研究生宿舍*</item>
+        <item>大學體育中心</item>
+        <item>邵逸夫堂</item>
+        <item>大學行政樓</item>
+        <item>善衡書院</item>
+        <item>賽馬會研究生宿舍*</item>
+        <item>港鐵大學站</item>
+    </string-array>
+    <string-array name="bus_route_2_stops">
+        <item>港鐵大學站廣場</item>
+        <item>大學體育中心</item>
+        <item>邵逸夫堂*</item>
+        <item>馮景禧樓</item>
+        <item>聯合書院</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>大學行政樓</item>
+        <item>善衡書院</item>
+        <item>港鐵大學站廣場</item>
+    </string-array>
+    <string-array name="bus_route_3_stops">
+        <item>康本國際學術園</item>
+        <item>大學體育中心</item>
+        <item>邵逸夫堂</item>
+        <item>馮景禧樓</item>
+        <item>三、四苑</item>
+        <item>逸夫書院</item>
+        <item>敬文書院</item>
+        <item>十五苑</item>
+        <item>聯合苑</item>
+        <item>陳震夏宿舍</item>
+        <item>逸夫書院</item>
+        <item>三、四苑</item>
+        <item>大學行政樓</item>
+        <item>善衡書院</item>
+        <item>港鐵大學站</item>
+    </string-array>
+    <string-array name="bus_route_4_stops">
+        <item>康本國際學術園</item>
+        <item>敬文書院</item>
+        <item>三十九區</item>
+        <item>敬文書院</item>
+        <item>十五苑</item>
+        <item>聯合苑</item>
+        <item>陳震夏宿舍</item>
+        <item>逸夫書院</item>
+        <item>三、四苑</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>大學行政樓</item>
+        <item>善衡書院</item>
+        <item>港鐵大學站</item>
+    </string-array>
+    <string-array name="bus_route_5_stops">
+        <item>崇基教學樓</item>
+        <item>大學體育中心</item>
+        <item>邵逸夫堂</item>
+        <item>馮景禧樓</item>
+        <item>聯合書院</item>
+        <item>新亞書院</item>
+        <item>三、四苑</item>
+        <item>逸夫書院</item>
+    </string-array>
+    <string-array name="bus_route_6_stops">
+        <item>敬文書院*</item>
+        <item>聯合苑*</item>
+        <item>陳震夏宿舍*</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>大學行政樓</item>
+        <item>善衡書院</item>
+        <item>港鐵大學站廣場</item>
+        <item>崇基教學樓</item>
+    </string-array>
+    <string-array name="bus_route_7_stops">
+        <item>逸夫書院</item>
+        <item>三、四苑</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>大學行政樓</item>
+        <item>善衡書院</item>
+        <item>港鐵大學站廣場</item>
+        <item>崇基教學樓</item>
+    </string-array>
+    <string-array name="bus_route_8_stops">
+        <item>敬文書院</item>
+        <item>聯合苑</item>
+        <item>陳震夏宿舍</item>
+        <item>逸夫書院</item>
+        <item>三、四苑</item>
+        <item>大學行政樓</item>
+        <item>科學館</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>三、四苑</item>
+        <item>逸夫書院</item>
+        <item>敬文書院</item>
+    </string-array>
+    <string-array name="bus_route_n_stops">
+        <item>港鐵大學站</item>
+        <item>賽馬會研究生宿舍*</item>
+        <item>大學體育中心</item>
+        <item>邵逸夫堂</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>三、四苑</item>
+        <item>逸夫書院</item>
+        <item>三十九區</item>
+        <item>敬文書院</item>
+        <item>十五苑</item>
+        <item>聯合苑</item>
+        <item>陳震夏宿舍</item>
+        <item>逸夫書院</item>
+        <item>三、四苑</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>大學行政樓</item>
+        <item>善衡書院</item>
+        <item>賽馬會研究生宿舍*</item>
+        <item>港鐵大學站</item>
+    </string-array>
+    <string-array name="bus_route_h_stops">
+        <item>港鐵大學站</item>
+        <item>大學體育中心</item>
+        <item>邵逸夫堂</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>三、四苑</item>
+        <item>逸夫書院</item>
+        <item>三十九區*</item>
+        <item>敬文書院</item>
+        <item>十苑</item>
+        <item>十五苑</item>
+        <item>聯合苑</item>
+        <item>陳震夏宿舍</item>
+        <item>逸夫書院</item>
+        <item>三、四苑</item>
+        <item>新亞書院</item>
+        <item>聯合書院</item>
+        <item>大學行政樓</item>
+        <item>善衡書院</item>
+        <item>港鐵大學站</item>
+    </string-array>
+    <string-array name="bus_route_lu_stops">
+        <item>港鐵大學站</item>
+        <item>王福元樓 </item>
+        <item>崇基教職員宿舍C、D座</item>
+        <item>教研樓一座 </item>
+        <item>大學保健處*</item>
+        <item>大學圖書館 </item>
+        <item>馮景禧樓</item>
+        <item>聯合書院*</item>
+        <item>新亞書院*</item>
+        <item>三、四苑</item>
+        <item>逸夫書院*</item>
+        <item>聯合苑</item>
+        <item>十五苑</item>
+        <item>十、十一苑 </item>
+        <item>三十九區*</item>
+        <item>賽馬會研究生宿舍*</item>
+        <item>港鐵大學站*</item>
+    </string-array>
+    <string-array name="bus_route_ld_stops">
+        <item>三十九區*</item>
+        <item>十、十一苑 </item>
+        <item>十五苑</item>
+        <item>聯合苑</item>
+        <item>逸夫書院*</item>
+        <item>三、四苑</item>
+        <item>聯合書院*</item>
+        <item>新亞書院*</item>
+        <item>大學行政樓</item>
+        <item>大學保健處*</item>
+        <item>何善衡工程大樓 </item>
+        <item>教研樓一座 </item>
+        <item>崇基教職員宿舍C、D座 </item>
+        <item>何添樓 </item>
+        <item>方樹泉樓 </item>
+        <item>港鐵大學站 </item>
+    </string-array>
+    <string-array name="bus_route_la39_stops">
+        <item>港鐵大學站*</item>
+        <item>三十九區</item>
+        <item>大學行政樓*</item>
+        <item>港鐵大學站*</item>
+    </string-array>
+    <string-array name="bus_route_lih_stops">
+        <item>港鐵大學站</item>
+        <item>賽馬會研究生宿舍</item>
+        <item>三十九區</item>
+        <item>聯合苑*</item>
+        <item>新亞書院*</item>
+        <item>聯合書院*</item>
+        <item>大學行政樓*</item>
+        <item>港鐵大學站*</item>
+    </string-array>
+
+</resources>

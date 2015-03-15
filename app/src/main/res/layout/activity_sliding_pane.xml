@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <android.support.v4.widget.SlidingPaneLayout
+        android:id="@+id/sliding_pane"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ad"
+        android:layout_alignParentTop="true" >
+
+        <fragment
+            android:id="@+id/list_pane"
+            android:name="edu.cuhk.bus.RouteListFragment"
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start" />
+
+        <FrameLayout
+            android:id="@+id/route_detail_container"
+            android:layout_width="480dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+
+    </android.support.v4.widget.SlidingPaneLayout>
+
+</RelativeLayout>

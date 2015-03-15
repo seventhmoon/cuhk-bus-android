@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <TextView
+            android:id="@+id/route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left" />
+
+        <TextView
+            android:id="@+id/note"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="8dp" >
+
+            <TextView
+                android:id="@+id/stop"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/bus_stops"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <GridView
+                android:id="@+id/stops"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:columnWidth="120dp"
+                android:numColumns="auto_fit"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollingCache="false"
+                android:stretchMode="columnWidth" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="8dp" >
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/bus_timetable"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <GridView
+                android:id="@+id/times"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:columnWidth="45dp"
+                android:isScrollContainer="false"
+                android:numColumns="auto_fit"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:stretchMode="columnWidth" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
