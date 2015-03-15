@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,13 +26,13 @@ public class RouteListFragment extends Fragment {
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
 	private Callbacks mCallbacks = sDummyCallbacks;
-	private int mActivatedPosition = ListView.INVALID_POSITION;
+//	private int mActivatedPosition = ListView.INVALID_POSITION;
 
 	private ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-	private SimpleAdapter simpleAdapter;
+//	private SimpleAdapter simpleAdapter;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
 	// private Handler handler = new Handler();
@@ -55,6 +55,8 @@ public class RouteListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
+
+        list.addAll(loadData());
         View v = inflater.inflate(R.layout.next_bus_grid, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.gridview);
 
@@ -67,7 +69,16 @@ public class RouteListFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new MyAdapter(this.list);
+        mAdapter.setMyItemClickListener(new MyItemClickListener() {
+
+            @Override
+            public void onItemClick(View view) {
+                int position = mRecyclerView.getChildPosition(view);
+                mCallbacks.onItemSelected(String.valueOf(position));
+                Log.d("***", view.toString());
+            }
+        });
         mRecyclerView.setAdapter(mAdapter);
         return v;
     }
@@ -77,13 +88,13 @@ public class RouteListFragment extends Fragment {
 
 
 
-		list.addAll(loadData());
-		simpleAdapter = new SimpleAdapter(getActivity(), list,
-				R.layout.next_bus_cell, new String[] { "route", "time", "desc",
-						"next_time", "last_time" }, new int[] { R.id.route,
-						R.id.time, R.id.desc, R.id.next_time, R.id.last_time });
 
-		setListAdapter(simpleAdapter);
+//		simpleAdapter = new SimpleAdapter(getActivity(), list,
+//				R.layout.next_bus_cell, new String[] { "route", "time", "desc",
+//						"next_time", "last_time" }, new int[] { R.id.route,
+//						R.id.time, R.id.desc, R.id.next_time, R.id.last_time });
+
+//		setListAdapter(simpleAdapter);
 
 		// refresh = new Runnable() {
 		// public void run() {
@@ -241,11 +252,11 @@ public class RouteListFragment extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		if (savedInstanceState != null
-				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-			setActivatedPosition(savedInstanceState
-					.getInt(STATE_ACTIVATED_POSITION));
-		}
+//		if (savedInstanceState != null
+//				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+//			setActivatedPosition(savedInstanceState
+//					.getInt(STATE_ACTIVATED_POSITION));
+//		}
 	}
 
 	@Override
@@ -265,37 +276,37 @@ public class RouteListFragment extends Fragment {
 		mCallbacks = sDummyCallbacks;
 	}
 
-	@Override
-	public void onListItemClick(ListView listView, View view, int position,
-			long id) {
-		super.onListItemClick(listView, view, position, id);
-		// mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
-		mCallbacks.onItemSelected(String.valueOf(position));
-	}
+//	@Override
+//	public void onListItemClick(ListView listView, View view, int position,
+//			long id) {
+//		super.onListItemClick(listView, view, position, id);
+//		// mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+//		mCallbacks.onItemSelected(String.valueOf(position));
+//	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		if (mActivatedPosition != ListView.INVALID_POSITION) {
-			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
-		}
+//		if (mActivatedPosition != ListView.INVALID_POSITION) {
+//			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+//		}
 	}
 
-	public void setActivateOnItemClick(boolean activateOnItemClick) {
-		getListView().setChoiceMode(
-				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
-						: ListView.CHOICE_MODE_NONE);
-	}
+//	public void setActivateOnItemClick(boolean activateOnItemClick) {
+//		getListView().setChoiceMode(
+//				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
+//						: ListView.CHOICE_MODE_NONE);
+//	}
 
-	public void setActivatedPosition(int position) {
-		if (position == ListView.INVALID_POSITION) {
-			getListView().setItemChecked(mActivatedPosition, false);
-		} else {
-			getListView().setItemChecked(position, true);
-		}
-
-		mActivatedPosition = position;
-	}
+//	public void setActivatedPosition(int position) {
+//		if (position == ListView.INVALID_POSITION) {
+//			getListView().setItemChecked(mActivatedPosition, false);
+//		} else {
+//			getListView().setItemChecked(position, true);
+//		}
+//
+//		mActivatedPosition = position;
+//	}
 
 	private String findAfterNext(String[] list) {
 		Date current = new Date();
@@ -354,27 +365,54 @@ public class RouteListFragment extends Fragment {
 		// this.recreate();
 		list.clear();
 		list.addAll(this.loadData());
-		simpleAdapter.notifyDataSetChanged();
+//		simpleAdapter.notifyDataSetChanged();
 
 	}
 
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private String[] mDataset;
+    interface MyItemClickListener  {
+        public void onItemClick(View view);
+    }
 
+    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+        //    private String[] mDataset;
+        private ArrayList<HashMap<String, Object>> mDataset = new ArrayList<HashMap<String, Object>>();
+        private MyItemClickListener mMyItemClickListener;
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
-        public static class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
             // each data item is just a string in this case
-            public TextView mTextView;
-            public ViewHolder(TextView v) {
+            public View mViewParent;
+            public TextView mTextViewRoute;
+            public TextView mTextViewNext;
+            public TextView mTextViewPerv;
+            public TextView mTextViewAfterNext;
+            public TextView mTextViewDesc;
+
+            public ViewHolder(View v)  {
                 super(v);
-                mTextView = v;
+                mViewParent = v;
+                mTextViewAfterNext = (TextView) v.findViewById(R.id.next_time);
+                mTextViewNext = (TextView) v.findViewById(R.id.time);
+                mTextViewPerv = (TextView) v.findViewById(R.id.last_time);
+                mTextViewDesc = (TextView) v.findViewById(R.id.desc);
+                mTextViewRoute = (TextView) v.findViewById(R.id.route);
+
+            }
+
+            @Override
+            public void onClick(View view) {
+                int position = mRecyclerView.getChildPosition(view);
+            Toast.makeText(getActivity(), String.valueOf(position), Toast.LENGTH_LONG).show();
+//                Log.d("TAG", v.toString());
+//                mMyItemClickListener.onItemClick(v);
+
+
             }
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(String[] myDataset) {
+        public MyAdapter(ArrayList<HashMap<String, Object>> myDataset) {
             mDataset = myDataset;
         }
 
@@ -384,9 +422,9 @@ public class RouteListFragment extends Fragment {
                                                        int viewType) {
             // create a new view
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.my_text_view, parent, false);
+                    .inflate(R.layout.next_bus_cell, parent, false);
             // set the view's size, margins, paddings and layout parameters
-            ...
+
             ViewHolder vh = new ViewHolder(v);
             return vh;
         }
@@ -396,14 +434,41 @@ public class RouteListFragment extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.mTextView.setText(mDataset[position]);
+//        holder.mTextView.setText(mDataset[position]);
+            HashMap<String, Object> entry = mDataset.get(position);
+            holder.mTextViewPerv.setText(entry.get("last_time").toString());
+            holder.mTextViewRoute.setText(entry.get("route").toString());
+            holder.mTextViewAfterNext.setText(entry.get("next_time").toString());
+            holder.mTextViewNext.setText(entry.get("time").toString());
+            holder.mTextViewDesc.setText(entry.get("desc").toString());
 
+            holder.mViewParent.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    int position = mRecyclerView.getChildPosition(view);
+//                    Toast.makeText(getActivity(), String.valueOf(position), Toast.LENGTH_LONG).show();
+                    mCallbacks.onItemSelected(String.valueOf(position));
+                }
+            });
         }
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return mDataset.length;
+            return mDataset.size();
         }
+
+
+        public void setMyItemClickListener(MyItemClickListener listener){
+            mMyItemClickListener = listener;
+        }
+
+
+
+
+
+
     }
+
 }

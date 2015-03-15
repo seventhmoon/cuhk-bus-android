@@ -14,22 +14,14 @@
         android:visibility="gone" />
 
    
-        <!--
-        <GridView
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/gridview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:columnWidth="240dp"
             android:numColumns="auto_fit"
-            android:stretchMode="columnWidth"
-            android:layout_margin="8dp"/>
-        -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/gridview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:columnWidth="240dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:layout_margin="8dp"/>
+            android:stretchMode="columnWidth" />
+
+
 </RelativeLayout>
