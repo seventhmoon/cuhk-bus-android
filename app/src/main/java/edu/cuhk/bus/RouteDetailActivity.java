@@ -6,17 +6,15 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdRequest.Builder;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import edu.cuhk.bus.CUBusApplication.TrackerName;
 
 public class RouteDetailActivity extends ActionBarActivity {
-	private AdView adView;
+//	private AdView adView;
 
 	public void onStart() {
 		super.onStart();
@@ -34,13 +32,13 @@ public class RouteDetailActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_route_detail);
 
-		adView = (AdView) this.findViewById(R.id.ad);
-		// setContentView(R.layout.bus_detail);
+//		adView = (AdView) this.findViewById(R.id.ad);
+        // setContentView(R.layout.bus_detail);
 
-		// if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		// getActionBar().setDisplayHomeAsUpEnabled(true);
-		// }
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//		getActionBar().setDisplayHomeAsUpEnabled(true);
+//		}
 
 		if (savedInstanceState == null) {
 			Bundle arguments = new Bundle();
@@ -52,8 +50,8 @@ public class RouteDetailActivity extends ActionBarActivity {
 					.add(R.id.route_detail_container, fragment).commit();
 		}
 		startTracking();
-		loadAd();
-	}
+//		loadAd();
+    }
 
 	private void loadAd() {
 		Builder builder = new AdRequest.Builder();
@@ -61,20 +59,20 @@ public class RouteDetailActivity extends ActionBarActivity {
 				AdRequest.DEVICE_ID_EMULATOR).build();
 		// .addTestDevice("TEST_DEVICE_ID").build();
 
-		if (adView != null) {
-			adView.setAdListener(new AdListener() {
-				@Override
-				public void onAdFailedToLoad(int errorCode) {
-					adView.setVisibility(AdView.GONE);
-				}
-
-				public void onAdLoaded() {
-					adView.setVisibility(AdView.VISIBLE);
-				}
-			});
-			adView.loadAd(adRequest);
-		}
-	}
+//		if (adView != null) {
+//			adView.setAdListener(new AdListener() {
+//				@Override
+//				public void onAdFailedToLoad(int errorCode) {
+//					adView.setVisibility(AdView.GONE);
+//				}
+//
+//				public void onAdLoaded() {
+//					adView.setVisibility(AdView.VISIBLE);
+//				}
+//			});
+//			adView.loadAd(adRequest);
+//		}
+    }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -89,27 +87,27 @@ public class RouteDetailActivity extends ActionBarActivity {
 
 	@Override
 	public void onPause() {
-		if (adView != null) {
-			adView.pause();
-		}
-		super.onPause();
+//		if (adView != null) {
+//			adView.pause();
+//		}
+        super.onPause();
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (adView != null) {
-
-			adView.resume();
-		}
-	}
+//		if (adView != null) {
+//
+//			adView.resume();
+//		}
+    }
 
 	@Override
 	public void onDestroy() {
-		if (adView != null) {
-			adView.destroy();
-		}
-		super.onDestroy();
+//		if (adView != null) {
+//			adView.destroy();
+//		}
+        super.onDestroy();
 	}
 
 	private void startTracking() {

@@ -1,5 +1,6 @@
 package edu.cuhk.bus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
@@ -105,33 +106,33 @@ public class RouteListActivity extends ActionBarActivity implements
 					.replace(R.id.route_detail_container, fragment).commit();
 
 		} else {
-			// Intent detailIntent = new Intent(this,
-			// RouteDetailActivity.class);
-			// detailIntent.putExtra(RouteDetailFragment.ARG_ITEM_ID, id);
-			// startActivity(detailIntent);
+            Intent detailIntent = new Intent(this,
+                    RouteDetailActivity.class);
+            detailIntent.putExtra(RouteDetailFragment.ARG_ITEM_ID, id);
+            startActivity(detailIntent);
 
-			Bundle arguments = new Bundle();
-			arguments.putString(RouteDetailFragment.ARG_ITEM_ID, id);
-			RouteDetailFragment fragment = new RouteDetailFragment();
-			fragment.setArguments(arguments);
-			fragment.show(getFragmentManager(), id);
-			// fragment.show(transaction, id);
+//			Bundle arguments = new Bundle();
+//			arguments.putString(RouteDetailFragment.ARG_ITEM_ID, id);
+//			RouteDetailFragment fragment = new RouteDetailFragment();
+//			fragment.setArguments(arguments);
+//			fragment.show(getFragmentManager(), id);
+            // fragment.show(transaction, id);
 
 			// Bundle transitationBundle =
 			// ActivityOptions.makeCustomAnimation(this, R.anim.abc_fade_in,
 			// R.anim.abc_fade_out).toBundle();
 
-			// android.support.v4.app.FragmentTransaction transaction =
-			// getSupportFragmentManager().beginTransaction();
-			// // DialogFragment fragment =
+//			android.support.v4.app.FragmentTransaction transaction =
+//			getSupportFragmentManager().beginTransaction();
+            // // DialogFragment fragment =
 			// RouteDetailFragment.newInstance(position);
 			// Bundle arguments = new Bundle();
 			// arguments.putString(RouteDetailFragment.ARG_ITEM_ID, id);
 			// RouteDetailFragment fragment = new RouteDetailFragment();
 			// fragment.setArguments(arguments);
-			// fragment.show(transaction, id);
-			// //transaction.commit();
-		}
+//			fragment.show(transaction, id);
+//			transaction.commit();
+        }
 //		if (mClickCount++ >= 1) {
 //			showInterstitalAd();
 //		}

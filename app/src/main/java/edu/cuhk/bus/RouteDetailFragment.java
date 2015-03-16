@@ -1,9 +1,5 @@
 package edu.cuhk.bus;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-
-import edu.cuhk.bus.CUBusApplication.TrackerName;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -27,7 +23,8 @@ public class RouteDetailFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		Dialog d = super.onCreateDialog(savedInstanceState);
 		d.setTitle(R.string.menu_info);
-		return d;
+//        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        return d;
 	}
 
 	@Override

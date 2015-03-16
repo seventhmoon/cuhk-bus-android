@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class RouteListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-	private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    private static final String STATE_ACTIVATED_POSITION = "activated_position";
     private static Callbacks sDummyCallbacks = new Callbacks() {
         public void onItemSelected(String id) {
         }
@@ -37,8 +37,8 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-	// private Handler handler = new Handler();
-	// private Runnable refresh;
+    // private Handler handler = new Handler();
+    // private Runnable refresh;
     private SwipeRefreshLayout mSwipeLayout;
 
     public RouteListFragment() {
@@ -88,20 +88,12 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onRefresh() {
         mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);
         mSwipeLayout.setRefreshing(false);
-//        new Handler().postDelayed(new Runnable() {
-//            @Override public void run() {
-//                swipeLayout.setRefreshing(false);
-//            }
-//        }, 5000);
     }
 
     @Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
 
 //		simpleAdapter = new SimpleAdapter(getActivity(), list,
@@ -111,21 +103,21 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 
 //		setListAdapter(simpleAdapter);
 
-		// refresh = new Runnable() {
-		// public void run() {
-		// // Do something
-		// refresh();
-		// // Toast.makeText(ctx, "R...", Toast.LENGTH_SHORT).show();
-		// handler.postDelayed(refresh, 1000 * 15);
-		// }
-		// };
-		// handler.post(refresh);
-		// //
-		// setListAdapter(new
-		// ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-		// R.layout.simple_list_item_activated_1,
-		// R.id.text1,
-		// DummyContent.ITEMS));
+        // refresh = new Runnable() {
+        // public void run() {
+        // // Do something
+        // refresh();
+        // // Toast.makeText(ctx, "R...", Toast.LENGTH_SHORT).show();
+        // handler.postDelayed(refresh, 1000 * 15);
+        // }
+        // };
+        // handler.post(refresh);
+        // //
+        // setListAdapter(new
+        // ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+        // R.layout.simple_list_item_activated_1,
+        // R.id.text1,
+        // DummyContent.ITEMS));
 
 
     }
@@ -273,7 +265,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 //		}
     }
 
-	@Override
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         if (!(activity instanceof Callbacks)) {
@@ -284,13 +276,13 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
         mCallbacks = (Callbacks) activity;
     }
 
-	@Override
+    @Override
     public void onDetach() {
         super.onDetach();
         mCallbacks = sDummyCallbacks;
     }
 
-	@Override
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 //		if (mActivatedPosition != ListView.INVALID_POSITION) {
@@ -340,35 +332,35 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 
     private String findNext(String[] list) {
         Date current = new Date();
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-		String now = timeFormat.format(current);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String now = timeFormat.format(current);
 
-		String r = null;
+        String r = null;
 
         for (String time : list) {
             if (time.compareTo(now) > 0) {
                 r = time;
                 break;
-			}
-		}
+            }
+        }
 
         return r;
-	}
+    }
 
     private String findLast(String[] list) {
         Date current = new Date();
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-		String now = timeFormat.format(current);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String now = timeFormat.format(current);
 
-		String r = null;
+        String r = null;
 
-		for (String time : list) {
+        for (String time : list) {
             if (time.compareTo(now) <= 0) {
                 r = time;
-			}
-		}
-		return r;
-	}
+            }
+        }
+        return r;
+    }
 
     public void onResume() {
         super.onResume();
@@ -381,14 +373,14 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
         list.addAll(this.loadData());
 //		simpleAdapter.notifyDataSetChanged();
 
-	}
+    }
 
     public interface Callbacks {
 
         public void onItemSelected(String id);
     }
 
-    interface MyItemClickListener  {
+    interface MyItemClickListener {
         public void onItemClick(View view);
     }
 
@@ -396,6 +388,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
         //    private String[] mDataset;
         private ArrayList<HashMap<String, Object>> mDataset = new ArrayList<HashMap<String, Object>>();
         private MyItemClickListener mMyItemClickListener;
+
         // Provide a suitable constructor (depends on the kind of dataset)
         public MyAdapter(ArrayList<HashMap<String, Object>> myDataset) {
             mDataset = myDataset;
@@ -481,10 +474,6 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 
             }
         }
-
-
-
-
 
 
     }
