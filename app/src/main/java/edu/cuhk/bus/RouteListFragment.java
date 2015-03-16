@@ -3,6 +3,7 @@ package edu.cuhk.bus;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,35 +22,27 @@ import java.util.HashMap;
 
 //import android.R;
 
-public class RouteListFragment extends Fragment {
+public class RouteListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
-
-	private Callbacks mCallbacks = sDummyCallbacks;
-//	private int mActivatedPosition = ListView.INVALID_POSITION;
-
-	private ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-//	private SimpleAdapter simpleAdapter;
-
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+        public void onItemSelected(String id) {
+        }
+    };
+    //	private int mActivatedPosition = ListView.INVALID_POSITION;
+    private Callbacks mCallbacks = sDummyCallbacks;
+    //	private SimpleAdapter simpleAdapter;
+    private ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
 	// private Handler handler = new Handler();
 	// private Runnable refresh;
+    private SwipeRefreshLayout mSwipeLayout;
 
-	public interface Callbacks {
-
-		public void onItemSelected(String id);
-	}
-
-	private static Callbacks sDummyCallbacks = new Callbacks() {
-		public void onItemSelected(String id) {
-		}
-	};
-
-	public RouteListFragment() {
-	}
+    public RouteListFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +51,15 @@ public class RouteListFragment extends Fragment {
 
         list.addAll(loadData());
         View v = inflater.inflate(R.layout.next_bus_grid, container, false);
+
+        mSwipeLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_container);
+        mSwipeLayout.setOnRefreshListener(this);
+//        mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+//                android.R.color.holo_green_light,
+//                android.R.color.holo_orange_light,
+//                android.R.color.holo_red_light);
+
+
         mRecyclerView = (RecyclerView) v.findViewById(R.id.gridview);
 
         // use this setting to improve performance if you know that changes
@@ -82,7 +84,20 @@ public class RouteListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         return v;
     }
-	@Override
+
+    @Override
+    public void onRefresh() {
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+        mSwipeLayout.setRefreshing(false);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override public void run() {
+//                swipeLayout.setRefreshing(false);
+//            }
+//        }, 5000);
+    }
+
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -111,170 +126,177 @@ public class RouteListFragment extends Fragment {
 		// R.layout.simple_list_item_activated_1,
 		// R.id.text1,
 		// DummyContent.ITEMS));
-		
-		
 
-	}
 
-	private ArrayList<HashMap<String, Object>> loadData() {
-		int[] availableRoutes = { R.array.bus_route_1, R.array.bus_route_2,
-				R.array.bus_route_3, R.array.bus_route_4, R.array.bus_route_5,
-				R.array.bus_route_6, R.array.bus_route_7, R.array.bus_route_8,
-				R.array.bus_route_n, R.array.bus_route_h,
-				R.array.bus_route_la39, R.array.bus_route_lih,
-				R.array.bus_route_lu, R.array.bus_route_ld };
+    }
 
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		String[] routes = getActivity().getResources().getStringArray(
-				R.array.bus_routes);
-		String[] routeNames = getActivity().getResources().getStringArray(
-				R.array.bus_route_names);
+    private ArrayList<HashMap<String, Object>> loadData() {
+        int[] availableRoutes = {R.array.bus_route_1, R.array.bus_route_2,
+                R.array.bus_route_3, R.array.bus_route_4, R.array.bus_route_5,
+                R.array.bus_route_6, R.array.bus_route_7, R.array.bus_route_8,
+                R.array.bus_route_n, R.array.bus_route_h,
+                R.array.bus_route_la39, R.array.bus_route_lih,
+                R.array.bus_route_lu, R.array.bus_route_ld};
 
-		Date current = new Date();
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+        String[] routes = getActivity().getResources().getStringArray(
+                R.array.bus_routes);
+        String[] routeNames = getActivity().getResources().getStringArray(
+                R.array.bus_route_names);
+
+        Date current = new Date();
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 //		String currentTime = timeFormat.format(current);
-		String today = dateFormat.format(current);
+        String today = dateFormat.format(current);
 
-		ArrayList<String> holidays = new ArrayList<String>(
-				Arrays.asList(getActivity().getResources().getStringArray(
-						R.array.holidays)));
+        ArrayList<String> holidays = new ArrayList<String>(
+                Arrays.asList(getActivity().getResources().getStringArray(
+                        R.array.holidays)));
 
-		ArrayList<String> nonTeachingDays = new ArrayList<String>(
-				Arrays.asList(getActivity().getResources().getStringArray(
-						R.array.non_teaching_days)));
+        ArrayList<String> nonTeachingDays = new ArrayList<String>(
+                Arrays.asList(getActivity().getResources().getStringArray(
+                        R.array.non_teaching_days)));
 
-		Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
-		boolean[] service = new boolean[routes.length];
-		Arrays.fill(service, true);
+        boolean[] service = new boolean[routes.length];
+        Arrays.fill(service, true);
 
-		if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
-				|| holidays.contains(today)) {
-			service[0] = false;
-			service[1] = false;
-			service[2] = false;
-			service[3] = false;
-			service[4] = false;
-			service[5] = false;
-			service[6] = false;
-			service[7] = false;
-			service[8] = false;
-			service[10] = false;
-			service[11] = false;
-			service[12] = false;
-			service[13] = false;
-		} else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-				|| holidays.contains(today)) {
-			service[9] = false;
-			service[10] = false;
-			service[11] = false;
-		} else {
-			service[9] = false;
-		}
-		if (nonTeachingDays.contains(today)) {
-			service[4] = false;
-			service[5] = false;
-			service[6] = false;
-			service[7] = false;
-		}
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
+                || holidays.contains(today)) {
+            service[0] = false;
+            service[1] = false;
+            service[2] = false;
+            service[3] = false;
+            service[4] = false;
+            service[5] = false;
+            service[6] = false;
+            service[7] = false;
+            service[8] = false;
+            service[10] = false;
+            service[11] = false;
+            service[12] = false;
+            service[13] = false;
+        } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+                || holidays.contains(today)) {
+            service[9] = false;
+            service[10] = false;
+            service[11] = false;
+        } else {
+            service[9] = false;
+        }
+        if (nonTeachingDays.contains(today)) {
+            service[4] = false;
+            service[5] = false;
+            service[6] = false;
+            service[7] = false;
+        }
 
 //		Log.i("***", nonTeachingDays.toString());
-		
-		// int[] defaultOrder = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-		// int[] nightOrder = { 8, 0, 1, 2, 3, 4, 5, 6, 7, 9 };
-		// int[] holidayOrder = { 9, 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-		// // List order = Arrays.asList(defaultOrder);
-		// int[] order = null;
-		//
-		// if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
-		// || holidays.contains(today)) {
-		// for (int i = 0; i <= 8; i++) {
-		// service[i] = false;
-		// }
-		// order = holidayOrder;
-		// } else {
-		// service[9] = false;
-		//
-		// if (currentTime.compareTo("18:00") >= 0) {
-		// order = nightOrder;
-		// } else {
-		// order = defaultOrder;
-		// }
-		// }
 
-		// if (today.compareTo("2012.09.10") <= 0) {
-		// int[] array = { 4, 5, 6, 7 };
-		// for (int i : array) {
-		// service[i] = false;
-		// }
-		// }
+        // int[] defaultOrder = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        // int[] nightOrder = { 8, 0, 1, 2, 3, 4, 5, 6, 7, 9 };
+        // int[] holidayOrder = { 9, 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        // // List order = Arrays.asList(defaultOrder);
+        // int[] order = null;
+        //
+        // if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
+        // || holidays.contains(today)) {
+        // for (int i = 0; i <= 8; i++) {
+        // service[i] = false;
+        // }
+        // order = holidayOrder;
+        // } else {
+        // service[9] = false;
+        //
+        // if (currentTime.compareTo("18:00") >= 0) {
+        // order = nightOrder;
+        // } else {
+        // order = defaultOrder;
+        // }
+        // }
 
-		// for (int i : order) {
-		// for (int i: display){
+        // if (today.compareTo("2012.09.10") <= 0) {
+        // int[] array = { 4, 5, 6, 7 };
+        // for (int i : array) {
+        // service[i] = false;
+        // }
+        // }
 
-		for (int i = 0; i < availableRoutes.length; i++) {
-			String[] times = getActivity().getResources().getStringArray(
-					availableRoutes[i]);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			String next = this.findNext(times);
-			String last = this.findLast(times);
-			String afterNext = this.findAfterNext(times);
-			map.put("route", routes[i]);
-			if (service[i]) {
-				map.put("last_time", last == null ? getActivity()
-						.getResources().getString(R.string.bus_out_of_service)
-						: last);
-				map.put("next_time", afterNext == null ? getActivity()
-						.getResources().getString(R.string.bus_out_of_service)
-						: afterNext);
-				map.put("time", next == null ? getActivity().getResources()
-						.getString(R.string.bus_not_available) : next);
-			} else {
-				map.put("time",
-						getActivity().getResources().getString(
-								R.string.bus_not_available));
-				map.put("next_time",
-						getActivity().getResources().getString(
-								R.string.bus_out_of_service));
-				map.put("last_time",
-						getActivity().getResources().getString(
-								R.string.bus_out_of_service));
-			}
-			map.put("desc", routeNames[i]);
-			list.add(map);
-		}
+        // for (int i : order) {
+        // for (int i: display){
 
-		return list;
+        for (int i = 0; i < availableRoutes.length; i++) {
+            String[] times = getActivity().getResources().getStringArray(
+                    availableRoutes[i]);
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            String next = this.findNext(times);
+            String last = this.findLast(times);
+            String afterNext = this.findAfterNext(times);
+            map.put("route", routes[i]);
+            if (service[i]) {
+                map.put("last_time", last == null ? getActivity()
+                        .getResources().getString(R.string.bus_out_of_service)
+                        : last);
+                map.put("next_time", afterNext == null ? getActivity()
+                        .getResources().getString(R.string.bus_out_of_service)
+                        : afterNext);
+                map.put("time", next == null ? getActivity().getResources()
+                        .getString(R.string.bus_not_available) : next);
+            } else {
+                map.put("time",
+                        getActivity().getResources().getString(
+                                R.string.bus_not_available));
+                map.put("next_time",
+                        getActivity().getResources().getString(
+                                R.string.bus_out_of_service));
+                map.put("last_time",
+                        getActivity().getResources().getString(
+                                R.string.bus_out_of_service));
+            }
+            map.put("desc", routeNames[i]);
+            list.add(map);
+        }
 
-	}
+        return list;
 
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 //		if (savedInstanceState != null
 //				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
 //			setActivatedPosition(savedInstanceState
 //					.getInt(STATE_ACTIVATED_POSITION));
 //		}
-	}
+    }
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		if (!(activity instanceof Callbacks)) {
-			throw new IllegalStateException(
-					"Activity must implement fragment's callbacks.");
-		}
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (!(activity instanceof Callbacks)) {
+            throw new IllegalStateException(
+                    "Activity must implement fragment's callbacks.");
+        }
 
-		mCallbacks = (Callbacks) activity;
-	}
+        mCallbacks = (Callbacks) activity;
+    }
 
 	@Override
-	public void onDetach() {
-		super.onDetach();
-		mCallbacks = sDummyCallbacks;
-	}
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = sDummyCallbacks;
+    }
+
+	@Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+//		if (mActivatedPosition != ListView.INVALID_POSITION) {
+//			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+//		}
+    }
 
 //	@Override
 //	public void onListItemClick(ListView listView, View view, int position,
@@ -284,13 +306,21 @@ public class RouteListFragment extends Fragment {
 //		mCallbacks.onItemSelected(String.valueOf(position));
 //	}
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-//		if (mActivatedPosition != ListView.INVALID_POSITION) {
-//			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
-//		}
-	}
+    private String findAfterNext(String[] list) {
+        Date current = new Date();
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String now = timeFormat.format(current);
+
+        String r = null;
+
+        for (int i = 0; i < list.length - 1; i++) {
+            if (list[i].compareTo(now) > 0) {
+                r = list[i + 1];
+                break;
+            }
+        }
+        return r;
+    }
 
 //	public void setActivateOnItemClick(boolean activateOnItemClick) {
 //		getListView().setChoiceMode(
@@ -308,66 +338,55 @@ public class RouteListFragment extends Fragment {
 //		mActivatedPosition = position;
 //	}
 
-	private String findAfterNext(String[] list) {
-		Date current = new Date();
+    private String findNext(String[] list) {
+        Date current = new Date();
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		String now = timeFormat.format(current);
 
 		String r = null;
 
-		for (int i = 0; i < list.length - 1; i++) {
-			if (list[i].compareTo(now) > 0) {
-				r = list[i + 1];
-				break;
-			}
-		}
-		return r;
-	}
-
-	private String findNext(String[] list) {
-		Date current = new Date();
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-		String now = timeFormat.format(current);
-
-		String r = null;
-
-		for (String time : list) {
-			if (time.compareTo(now) > 0) {
-				r = time;
-				break;
+        for (String time : list) {
+            if (time.compareTo(now) > 0) {
+                r = time;
+                break;
 			}
 		}
 
-		return r;
+        return r;
 	}
 
-	private String findLast(String[] list) {
-		Date current = new Date();
+    private String findLast(String[] list) {
+        Date current = new Date();
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		String now = timeFormat.format(current);
 
 		String r = null;
 
 		for (String time : list) {
-			if (time.compareTo(now) <= 0) {
-				r = time;
+            if (time.compareTo(now) <= 0) {
+                r = time;
 			}
 		}
 		return r;
 	}
 
-	public void onResume() {
-		super.onResume();
-		refresh();
-	}
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
 
-	public void refresh() {
-		// this.recreate();
-		list.clear();
-		list.addAll(this.loadData());
+    public void refresh() {
+        // this.recreate();
+        list.clear();
+        list.addAll(this.loadData());
 //		simpleAdapter.notifyDataSetChanged();
 
 	}
+
+    public interface Callbacks {
+
+        public void onItemSelected(String id);
+    }
 
     interface MyItemClickListener  {
         public void onItemClick(View view);
@@ -377,40 +396,6 @@ public class RouteListFragment extends Fragment {
         //    private String[] mDataset;
         private ArrayList<HashMap<String, Object>> mDataset = new ArrayList<HashMap<String, Object>>();
         private MyItemClickListener mMyItemClickListener;
-        // Provide a reference to the views for each data item
-        // Complex data items may need more than one view per item, and
-        // you provide access to all the views for a data item in a view holder
-        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-            // each data item is just a string in this case
-            public View mViewParent;
-            public TextView mTextViewRoute;
-            public TextView mTextViewNext;
-            public TextView mTextViewPerv;
-            public TextView mTextViewAfterNext;
-            public TextView mTextViewDesc;
-
-            public ViewHolder(View v)  {
-                super(v);
-                mViewParent = v;
-                mTextViewAfterNext = (TextView) v.findViewById(R.id.next_time);
-                mTextViewNext = (TextView) v.findViewById(R.id.time);
-                mTextViewPerv = (TextView) v.findViewById(R.id.last_time);
-                mTextViewDesc = (TextView) v.findViewById(R.id.desc);
-                mTextViewRoute = (TextView) v.findViewById(R.id.route);
-
-            }
-
-            @Override
-            public void onClick(View view) {
-                int position = mRecyclerView.getChildPosition(view);
-            Toast.makeText(getActivity(), String.valueOf(position), Toast.LENGTH_LONG).show();
-//                Log.d("TAG", v.toString());
-//                mMyItemClickListener.onItemClick(v);
-
-
-            }
-        }
-
         // Provide a suitable constructor (depends on the kind of dataset)
         public MyAdapter(ArrayList<HashMap<String, Object>> myDataset) {
             mDataset = myDataset;
@@ -442,7 +427,7 @@ public class RouteListFragment extends Fragment {
             holder.mTextViewNext.setText(entry.get("time").toString());
             holder.mTextViewDesc.setText(entry.get("desc").toString());
 
-            holder.mViewParent.setOnClickListener(new View.OnClickListener(){
+            holder.mViewParent.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
@@ -459,9 +444,42 @@ public class RouteListFragment extends Fragment {
             return mDataset.size();
         }
 
-
-        public void setMyItemClickListener(MyItemClickListener listener){
+        public void setMyItemClickListener(MyItemClickListener listener) {
             mMyItemClickListener = listener;
+        }
+
+        // Provide a reference to the views for each data item
+        // Complex data items may need more than one view per item, and
+        // you provide access to all the views for a data item in a view holder
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            // each data item is just a string in this case
+            public View mViewParent;
+            public TextView mTextViewRoute;
+            public TextView mTextViewNext;
+            public TextView mTextViewPerv;
+            public TextView mTextViewAfterNext;
+            public TextView mTextViewDesc;
+
+            public ViewHolder(View v) {
+                super(v);
+                mViewParent = v;
+                mTextViewAfterNext = (TextView) v.findViewById(R.id.next_time);
+                mTextViewNext = (TextView) v.findViewById(R.id.time);
+                mTextViewPerv = (TextView) v.findViewById(R.id.last_time);
+                mTextViewDesc = (TextView) v.findViewById(R.id.desc);
+                mTextViewRoute = (TextView) v.findViewById(R.id.route);
+
+            }
+
+            @Override
+            public void onClick(View view) {
+                int position = mRecyclerView.getChildPosition(view);
+                Toast.makeText(getActivity(), String.valueOf(position), Toast.LENGTH_LONG).show();
+//                Log.d("TAG", v.toString());
+//                mMyItemClickListener.onItemClick(v);
+
+
+            }
         }
 
 
