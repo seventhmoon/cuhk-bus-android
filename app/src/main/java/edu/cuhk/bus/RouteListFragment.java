@@ -6,12 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,8 +27,9 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
         public void onItemSelected(String id) {
         }
     };
-    //	private int mActivatedPosition = ListView.INVALID_POSITION;
     private Callbacks mCallbacks = sDummyCallbacks;
+    //    	private int mActivatedPosition = ListView.INVALID_POSITION;
+    private int mActivatedPosition = -1;
     //	private SimpleAdapter simpleAdapter;
     private ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
     private RecyclerView mRecyclerView;
@@ -78,7 +77,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
             public void onItemClick(View view) {
                 int position = mRecyclerView.getChildPosition(view);
                 mCallbacks.onItemSelected(String.valueOf(position));
-                Log.d("***", view.toString());
+
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -258,11 +257,11 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//		if (savedInstanceState != null
-//				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-//			setActivatedPosition(savedInstanceState
-//					.getInt(STATE_ACTIVATED_POSITION));
-//		}
+        if (savedInstanceState != null
+                && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+            setActivatedPosition(savedInstanceState
+                    .getInt(STATE_ACTIVATED_POSITION));
+        }
     }
 
     @Override
@@ -285,9 +284,9 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//		if (mActivatedPosition != ListView.INVALID_POSITION) {
-//			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
-//		}
+        if (mActivatedPosition != -1) {
+            outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+        }
     }
 
 //	@Override
@@ -320,15 +319,15 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 //						: ListView.CHOICE_MODE_NONE);
 //	}
 
-//	public void setActivatedPosition(int position) {
-//		if (position == ListView.INVALID_POSITION) {
+    public void setActivatedPosition(int position) {
+//		if (position == -1) {
 //			getListView().setItemChecked(mActivatedPosition, false);
 //		} else {
 //			getListView().setItemChecked(position, true);
 //		}
-//
-//		mActivatedPosition = position;
-//	}
+        mRecyclerView.scrollToPosition(position);
+        mActivatedPosition = position;
+    }
 
     private String findNext(String[] list) {
         Date current = new Date();
@@ -364,16 +363,16 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 
     public void onResume() {
         super.onResume();
-        refresh();
+//        refresh();
     }
 
-    public void refresh() {
-        // this.recreate();
-        list.clear();
-        list.addAll(this.loadData());
-//		simpleAdapter.notifyDataSetChanged();
-
-    }
+//    public void refresh() {
+//        // this.recreate();
+//        list.clear();
+//        list.addAll(this.loadData());
+////		simpleAdapter.notifyDataSetChanged();
+//
+//    }
 
     public interface Callbacks {
 
@@ -444,7 +443,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
-        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public View mViewParent;
             public TextView mTextViewRoute;
@@ -464,15 +463,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 
             }
 
-            @Override
-            public void onClick(View view) {
-                int position = mRecyclerView.getChildPosition(view);
-                Toast.makeText(getActivity(), String.valueOf(position), Toast.LENGTH_LONG).show();
-//                Log.d("TAG", v.toString());
-//                mMyItemClickListener.onItemClick(v);
 
-
-            }
         }
 
 

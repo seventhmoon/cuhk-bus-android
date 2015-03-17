@@ -38,8 +38,9 @@
 
         <activity
             android:name=".RouteListActivity"
-            android:label="@string/title_route_list" >
-            <intent-filter>
+            android:label="@string/title_route_list"
+            android:launchMode="singleTop">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
