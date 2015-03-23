@@ -16,6 +16,12 @@ import edu.cuhk.bus.CUBusApplication.TrackerName;
 public class RouteDetailActivity extends ActionBarActivity {
 //	private AdView adView;
 
+    // View name of the header image. Used for activity scene transitions
+    public static final String VIEW_NAME_ROUTE = "detail:header:route";
+
+    // View name of the header title. Used for activity scene transitions
+    public static final String VIEW_NAME_ROUTE_NAME = "detail:header:name";
+
 	public void onStart() {
 		super.onStart();
 		// EasyTracker.getInstance().activityStart(this); // Add this method.
@@ -51,6 +57,8 @@ public class RouteDetailActivity extends ActionBarActivity {
 		}
 		startTracking();
 //		loadAd();
+
+
     }
 
 	private void loadAd() {

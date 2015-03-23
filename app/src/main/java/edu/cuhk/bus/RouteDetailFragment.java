@@ -3,6 +3,7 @@ package edu.cuhk.bus;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 public class RouteDetailFragment extends DialogFragment {
 
     public static final String ARG_ITEM_ID = "item_id";
+
 
     // DummyContent.DummyItem mItem;
     int routeId = 0;
@@ -116,6 +118,9 @@ public class RouteDetailFragment extends DialogFragment {
         timeView.setAdapter(timesAdapter);
         stopsView.setAdapter(stopsAdapter);
 
+
+        ViewCompat.setTransitionName(v.findViewById(R.id.route), RouteDetailActivity.VIEW_NAME_ROUTE);
+        ViewCompat.setTransitionName(v.findViewById(R.id.desc), RouteDetailActivity.VIEW_NAME_ROUTE_NAME);
         return v;
     }
 }

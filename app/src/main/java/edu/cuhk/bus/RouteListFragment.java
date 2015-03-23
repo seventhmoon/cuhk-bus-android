@@ -24,7 +24,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
     private static Callbacks sDummyCallbacks = new Callbacks() {
-        public void onItemSelected(String id) {
+        public void onItemSelected(String id, View routeView, View descView) {
         }
     };
     private Callbacks mCallbacks = sDummyCallbacks;
@@ -76,7 +76,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
             @Override
             public void onItemClick(View view) {
                 int position = mRecyclerView.getChildPosition(view);
-                mCallbacks.onItemSelected(String.valueOf(position));
+                mCallbacks.onItemSelected(String.valueOf(position), view.findViewById(R.id.route), view.findViewById(R.id.desc));
 
             }
         });
@@ -376,7 +376,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
 
     public interface Callbacks {
 
-        public void onItemSelected(String id);
+        public void onItemSelected(String id, View routeView, View descView);
     }
 
     interface MyItemClickListener {
@@ -425,7 +425,7 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
                 public void onClick(View view) {
                     int position = mRecyclerView.getChildPosition(view);
 //                    Toast.makeText(getActivity(), String.valueOf(position), Toast.LENGTH_LONG).show();
-                    mCallbacks.onItemSelected(String.valueOf(position));
+                    mCallbacks.onItemSelected(String.valueOf(position), view.findViewById(R.id.route), view.findViewById(R.id.desc));
                 }
             });
         }
