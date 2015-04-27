@@ -13,7 +13,7 @@ import com.google.android.gms.analytics.Tracker;
 
 import edu.cuhk.bus.CUBusApplication.TrackerName;
 
-public class RouteListActivity extends ActionBarActivity implements
+public class RouteListActivity extends AppCompactActivity implements
 		RouteListFragment.Callbacks {
 //	private InterstitialAd interstitialAd;
 	private boolean mTwoPane;
