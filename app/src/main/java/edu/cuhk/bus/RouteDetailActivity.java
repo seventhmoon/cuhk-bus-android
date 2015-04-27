@@ -13,7 +13,7 @@ import com.google.android.gms.analytics.Tracker;
 
 import edu.cuhk.bus.CUBusApplication.TrackerName;
 
-public class RouteDetailActivity extends ActionBarActivity {
+public class RouteDetailActivity extends AppCompactActivity {
 //	private AdView adView;
 
     // View name of the header image. Used for activity scene transitions
