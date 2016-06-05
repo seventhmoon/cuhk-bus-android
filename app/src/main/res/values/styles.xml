@@ -10,10 +10,10 @@
 	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
     <!-- colorPrimary is used for the default action bar background -->
-    <item name="colorPrimary">@color/my_awesome_color</item>
+    <item name="colorPrimary">@color/primary</item>
 
     <!-- colorPrimaryDark is used for the status bar -->
-    <item name="colorPrimaryDark">@color/my_awesome_darker_color</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
 
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
@@ -21,7 +21,16 @@
 
     </style>
 
-    <color name="my_awesome_color">#546E7A</color>
-    <color name="my_awesome_darker_color">#455A64</color>
-    <color name="accent">#37474F</color>
+    <!--<color name="my_awesome_color">#546E7A</color>-->
+    <!--<color name="my_awesome_darker_color">#455A64</color>-->
+    <!--<color name="accent">#37474F</color>-->
+
+    <color name="primary">#673AB7</color>
+    <color name="primary_dark">#512DA8</color>
+    <color name="primary_light">#D1C4E9</color>
+    <color name="accent">#FF9800</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
 </resources>

@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 //import android.R;
 
@@ -136,8 +137,8 @@ public class RouteListFragment extends Fragment implements SwipeRefreshLayout.On
                 R.array.bus_route_names);
 
         Date current = new Date();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.US);
 //		String currentTime = timeFormat.format(current);
         String today = dateFormat.format(current);
 

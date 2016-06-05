@@ -10,21 +10,13 @@
     android:showDividers="middle"
     tools:context=".RouteListActivity" >
 
-    <include
-        android:id="@+id/ad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        layout="@layout/adview"
-        android:gravity="fill"
-        android:visibility="gone" />
 
     <fragment
         android:id="@+id/route_list"
         android:name="edu.cuhk.bus.RouteListFragment"
         android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_above="@id/ad"
+
         android:layout_alignParentTop="true" />
 
     <FrameLayout

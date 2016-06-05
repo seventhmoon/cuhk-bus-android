@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.gms.ads.AdView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:googleads="http://schemas.android.com/apk/res-auto"
-    googleads:adSize="SMART_BANNER"
-    googleads:adUnitId="@string/ad_unit_id"
-    android:visibility="gone"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>

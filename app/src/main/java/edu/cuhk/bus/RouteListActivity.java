@@ -5,111 +5,59 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
-import edu.cuhk.bus.CUBusApplication.TrackerName;
-
-public class RouteListActivity extends ActionBarActivity implements
-		RouteListFragment.Callbacks {
-//	private InterstitialAd interstitialAd;
-	private boolean mTwoPane;
-//	private AdView adView;
+public class RouteListActivity extends AppCompatActivity implements
+        RouteListFragment.Callbacks {
+    private boolean mTwoPane;
+    private FirebaseAnalytics mFirebaseAnalytics;
 //	private int mClickCount = 0;
 
-	public void onStart() {
-		super.onStart();
-		// EasyTracker.getInstance().activityStart(this); // Add this method.
+    public void onStart() {
+        super.onStart();
+    }
 
-	}
+    public void onStop() {
+        super.onStop();
+    }
 
-	public void onStop() {
-		super.onStop();
-		// EasyTracker.getInstance().activityStop(this); // Add this method.
-	}
 
-//	private void prepareInterstitalAd() {
-//		// Create the interstitial.
-//		interstitialAd = new InterstitialAd(this);
-//		interstitialAd.setAdUnitId(getResources().getString(
-//				R.string.ad_unit_id_interstitial));
-//
-//		// Create ad request.
-//		Builder builder = new AdRequest.Builder();
-//
-//		AdRequest adRequest = builder.build();
-//
-//		// Begin loading your interstitial.
-//		interstitialAd.loadAd(adRequest);
-//	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_route_list);
 
-//	private void showInterstitalAd() {
-//		if (interstitialAd.isLoaded()) {
-//			interstitialAd.show();
-//		}
-//	}
+        if (findViewById(R.id.route_detail_container) != null) {
+            mTwoPane = true;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_route_list);
 
-//        getActionBar().setIcon(R.drawable.ic_launcher);
+            // Set page = 0
+            Bundle arguments = new Bundle();
+            arguments.putString(RouteDetailFragment.ARG_ITEM_ID, "0");
+            RouteDetailFragment fragment = new RouteDetailFragment();
+            fragment.setArguments(arguments);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.route_detail_container, fragment).commit();
+        }
 
-//		adView = (AdView) this.findViewById(R.id.ad);
-		if (findViewById(R.id.route_detail_container) != null) {
-			mTwoPane = true;
-//			((RouteListFragment) getSupportFragmentManager().findFragmentById(
-//					R.id.route_list)).setActivateOnItemClick(true);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, new Bundle());
 
-			// Set page = 0
-			Bundle arguments = new Bundle();
-			arguments.putString(RouteDetailFragment.ARG_ITEM_ID, "0");
-			RouteDetailFragment fragment = new RouteDetailFragment();
-			fragment.setArguments(arguments);
-			getFragmentManager().beginTransaction()
-					.replace(R.id.route_detail_container, fragment).commit();
-		}
-		startTracking();
-//		loadAd();
-//		prepareInterstitalAd();
-	}
-
-//	private void loadAd() {
-//
-//		Builder builder = new AdRequest.Builder();
-//		AdRequest adRequest = builder.addTestDevice(
-//				AdRequest.DEVICE_ID_EMULATOR).build();
-//		// .addTestDevice("TEST_DEVICE_ID").build();
-//
-//		if (adView != null) {
-//			adView.setAdListener(new AdListener() {
-//				@Override
-//				public void onAdFailedToLoad(int errorCode) {
-//					adView.setVisibility(AdView.GONE);
-//				}
-//
-//				public void onAdLoaded() {
-//					adView.setVisibility(AdView.VISIBLE);
-//				}
-//			});
-//			adView.loadAd(adRequest);
-//		}
-//	}
+    }
 
     public void onItemSelected(String id, View routeView, View descView) {
         if (mTwoPane) {
-			Bundle arguments = new Bundle();
-			arguments.putString(RouteDetailFragment.ARG_ITEM_ID, id);
-			RouteDetailFragment fragment = new RouteDetailFragment();
-			fragment.setArguments(arguments);
-			getFragmentManager().beginTransaction()
-					.replace(R.id.route_detail_container, fragment).commit();
+            Bundle arguments = new Bundle();
+            arguments.putString(RouteDetailFragment.ARG_ITEM_ID, id);
+            RouteDetailFragment fragment = new RouteDetailFragment();
+            fragment.setArguments(arguments);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.route_detail_container, fragment).commit();
 
-		} else {
+        } else {
             Intent detailIntent = new Intent(this,
                     RouteDetailActivity.class);
             detailIntent.putExtra(RouteDetailFragment.ARG_ITEM_ID, id);
@@ -130,74 +78,25 @@ public class RouteListActivity extends ActionBarActivity implements
                     new Pair<View, String>(descView,
                             RouteDetailActivity.VIEW_NAME_ROUTE_NAME));
 
-//            startActivity(detailIntent);
-
             ActivityCompat.startActivity(this, detailIntent, activityOptions.toBundle());
 
-//			Bundle arguments = new Bundle();
-//			arguments.putString(RouteDetailFragment.ARG_ITEM_ID, id);
-//			RouteDetailFragment fragment = new RouteDetailFragment();
-//			fragment.setArguments(arguments);
-//			fragment.show(getFragmentManager(), id);
-            // fragment.show(transaction, id);
-
-			// Bundle transitationBundle =
-			// ActivityOptions.makeCustomAnimation(this, R.anim.abc_fade_in,
-			// R.anim.abc_fade_out).toBundle();
-
-//			android.support.v4.app.FragmentTransaction transaction =
-//			getSupportFragmentManager().beginTransaction();
-            // // DialogFragment fragment =
-			// RouteDetailFragment.newInstance(position);
-			// Bundle arguments = new Bundle();
-			// arguments.putString(RouteDetailFragment.ARG_ITEM_ID, id);
-			// RouteDetailFragment fragment = new RouteDetailFragment();
-			// fragment.setArguments(arguments);
-//			fragment.show(transaction, id);
-//			transaction.commit();
         }
-//		if (mClickCount++ >= 1) {
-//			showInterstitalAd();
-//		}
-	}
+    }
 
-	@Override
-	public void onPause() {
-//		if (adView != null) {
-//			adView.pause();
-//		}
-		super.onPause();
-	}
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
-	@Override
-	public void onResume() {
-		super.onResume();
-//		if (adView != null) {
-//			adView.resume();
-//		}
-		// showInterstitalAd();
-	}
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
-	@Override
-	public void onDestroy() {
-//		if (adView != null) {
-//			adView.destroy();
-//		}
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
-		super.onDestroy();
-	}
 
-	private void startTracking() {
-		// Get tracker.
-		Tracker t = ((CUBusApplication) this.getApplication()).getTracker(
-
-		TrackerName.APP_TRACKER);
-
-		// Set screen name.
-		// Where path is a String representing the screen name.
-		t.setScreenName(this.getLocalClassName());
-
-		// Send a screen view.
-		t.send(new HitBuilders.AppViewBuilder().build());
-	}
 }
