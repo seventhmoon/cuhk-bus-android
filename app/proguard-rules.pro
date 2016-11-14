@@ -22,7 +22,8 @@
 #-keep class android.support.v4.** { *; }
 #-keep interface android.support.v4.** { *; }
 -keep public class com.google.android.gms.**
--keep class !android.support.v7.internal.view.menu.**,android.support.** {*;}
+#-keep class !android.support.v7.internal.view.menu.**,android.support.** {*;}
+-keep class android.support.** {*;}
 -dontwarn android.support.v7.**
 -dontwarn com.google.android.gms.**
 -dontwarn android.support.**
@@ -42,3 +43,8 @@
 -keep class com.google.android.gms.location.**
 -keep class com.google.api.client.**
 -keep class com.google.maps.android.**
+
+
+-keep class android.os.Parcelable.Creator
+-keep class com.google.android.gms.location.ActivityRecognitionResult
+-keep class com.google.android.gms.** {*;}

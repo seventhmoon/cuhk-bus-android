@@ -15,5 +15,6 @@
     <string name="title_activity_sliding_pane">SlidingPaneActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_geo_fances">GeoFancesActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

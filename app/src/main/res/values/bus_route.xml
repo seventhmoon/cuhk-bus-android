@@ -12,8 +12,8 @@
         <item>轉堂校巴</item>
         <item>逢每小時00分由港鐵大學站開出班次途經賽馬會研究生宿舍。</item>
         <item>逢每小時00分由港鐵大學站開出班次途經三十九區 。\n由9月至翌年5月，假期的最後一天20:00至23:20，約10至15分鐘開出一班。</item>
-        <item>早上班次只由港鐵大學站往三十九區。傍晚班次只由三十九區往港鐵大學站。</item>
-        <item></item>
+        <!--<item>早上班次只由港鐵大學站往三十九區。傍晚班次只由三十九區往港鐵大學站。</item>-->
+        <!--<item></item>-->
         <item></item>
         <item></item>
     </string-array>
@@ -28,8 +28,8 @@
         <item>8</item>
         <item>N</item>
         <item>H</item>
-        <item>LA39</item>
-        <item>LIH</item>
+        <!--<item>LA39</item>-->
+        <!--<item>LIH</item>-->
         <item>LU</item>
         <item>LD</item>
     </string-array>
@@ -44,8 +44,8 @@
         <item>逸夫 往返 本部、新亞及聯合</item>
         <item>夜行線</item>
         <item>假日線</item>
-        <item>三十九區專車</item>
-        <item>國際生舍堂穿梭巴士</item>
+        <!--<item>三十九區專車</item>-->
+        <!--<item>國際生舍堂穿梭巴士</item>-->
         <item>上行穿梭小巴</item>
         <item>下行穿梭小巴</item>
     </string-array>
